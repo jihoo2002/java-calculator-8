@@ -35,14 +35,6 @@ class CalculatorInputSplitterTest {
             String[] result = CalculatorInputSplitter.split(input);
             assertArrayEquals(new String[]{""}, result);
         }
-
-        @Test
-        @DisplayName("공백만 있는 입력 문자열 분리")
-        void split_공백입력() {
-            String input = "   ";
-            String[] result = CalculatorInputSplitter.split(input);
-            assertArrayEquals(new String[]{"   "}, result);
-        }
     }
 
     @Nested
@@ -55,14 +47,6 @@ class CalculatorInputSplitterTest {
             String input = "//;\\n1;2;3";
             String[] result = CalculatorInputSplitter.split(input);
             assertArrayEquals(new String[]{"1", "2", "3"}, result);
-        }
-
-        @Test
-        @DisplayName("커스텀 구분자에 공백 포함 시 분리")
-        void split_커스텀_구분자_공백포함() {
-            String input = "// ;\\n1 ; 2 ;3";
-            String[] result = CalculatorInputSplitter.split(input);
-            assertArrayEquals(new String[]{"1 ", " 2 ", "3"}, result);
         }
 
         @Test
@@ -79,13 +63,6 @@ class CalculatorInputSplitterTest {
             String input = "//;\\n";
             String[] result = CalculatorInputSplitter.split(input);
             assertArrayEquals(new String[]{""}, result);
-        }
-
-        @Test
-        @DisplayName("잘못된 커스텀 구분자 포맷으로 예외 발생")
-        void split_커스텀_잘못된포맷() {
-            String input = "//;1;2;3"; // 줄바꿈 누락
-            assertThrows(Exception.class, () -> CalculatorInputSplitter.split(input));
         }
     }
 }

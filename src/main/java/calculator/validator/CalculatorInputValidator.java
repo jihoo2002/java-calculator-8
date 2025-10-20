@@ -3,6 +3,8 @@ package calculator.validator;
 import calculator.util.Constants;
 import calculator.util.ErrorMessage;
 
+import java.util.regex.Pattern;
+
 public class CalculatorInputValidator {
 
     public static void validateInput(String input) {
@@ -29,39 +31,40 @@ public class CalculatorInputValidator {
     }
 
     private static void validateCustomDelimiter(String input) {
-        int newlineIndex = input.indexOf(Constants.CUSTOM_DELIMITER_SEPARATOR);
+        int delimiterEndIndex = input.indexOf(Constants.CUSTOM_DELIMITER_SEPARATOR);
 
-        validateDelimiterPresence(newlineIndex);
+        validateDelimiterPresence(delimiterEndIndex);
 
-        String delimiter = input.substring(Constants.CUSTOM_DELIMITER_PREFIX_LENGTH, newlineIndex).trim();
+        String delimiter = input.substring(Constants.CUSTOM_DELIMITER_PREFIX_LENGTH, delimiterEndIndex).trim();
         validateSingleCharDelimiter(delimiter);
 
-        validateNumbersPartNotEmpty(input, newlineIndex);
+        validateNumbersPartNotEmpty(input, delimiterEndIndex);
     }
 
-    private static void validateDelimiterPresence(int newlineIndex) {
-        if (newlineIndex == -1) {
+    private static void validateDelimiterPresence(int delimiterEndIndex) {
+        if (delimiterEndIndex == -1) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_CUSTOM_DELIMITER_FORMAT.getMessage());
         }
     }
 
-    private static void validateNumbersPartNotEmpty(String input, int newlineIndex) {
-        String numbersPart = input.substring(newlineIndex + Constants.CUSTOM_DELIMITER_PREFIX_LENGTH);
+    private static void validateNumbersPartNotEmpty(String input, int delimiterEndIndex) {
+        String numbersPart = input.substring(delimiterEndIndex + Constants.CUSTOM_DELIMITER_PREFIX_LENGTH);
         if (numbersPart.isEmpty()) {
             throw new IllegalArgumentException(ErrorMessage.EMPTY_VALUE.getMessage());
         }
     }
 
-    private static void validateSingleCharDelimiter(String delimiter) {
-        if (delimiter == null || delimiter.length() != 1) {
+    private static void validateSingleCharDelimiter(String customDelimiter) {
+        if (customDelimiter == null || customDelimiter.length() != 1) {
             throw new IllegalArgumentException(ErrorMessage.MULTIPLE_CUSTOM_DELIMITERS_NOT_ALLOWED.getMessage());
         }
     }
 
     private static void validateDefaultDelimiter(String input) {
-        if (!input.matches("[0-9,:]*")) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_DEFAULT_DELIMITER.getMessage());
+        if (Pattern.compile(Constants.DEFAULT_DELIMITER_REGEX).matcher(input).find()) {
+            return;
         }
+        throw new IllegalArgumentException(ErrorMessage.INVALID_DEFAULT_DELIMITER.getMessage());
     }
 
     private static void validateNotEmpty(String number) {
@@ -71,13 +74,13 @@ public class CalculatorInputValidator {
     }
 
     private static void validateIsNumber(String number) {
-        if (isNumber(number)) {
+        if (isPositiveNumber(number)) {
             return;
         }
         throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER.getMessage());
     }
 
-    private static boolean isNumber(String number) {
+    private static boolean isPositiveNumber(String number) {
         return number.matches(Constants.POSITIVE_NUMBER_REGEX);
     }
 }

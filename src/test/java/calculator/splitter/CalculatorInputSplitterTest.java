@@ -14,7 +14,7 @@ class CalculatorInputSplitterTest {
 
         @Test
         @DisplayName("쉼표와 콜론으로 정상 분리")
-        void split_기본_구분자() {
+        void 기본_구분자() {
             String input = "1,2:3";
             String[] result = CalculatorInputSplitter.split(input);
             assertArrayEquals(new String[]{"1", "2", "3"}, result);
@@ -22,7 +22,7 @@ class CalculatorInputSplitterTest {
 
         @Test
         @DisplayName("숫자 하나만 있을 때 분리")
-        void split_숫자_하나만() {
+        void 숫자_하나만() {
             String input = "42";
             String[] result = CalculatorInputSplitter.split(input);
             assertArrayEquals(new String[]{"42"}, result);
@@ -30,7 +30,7 @@ class CalculatorInputSplitterTest {
 
         @Test
         @DisplayName("빈 문자열 입력 시 분리 결과")
-        void split_빈문자열() {
+        void 빈문자열() {
             String input = "";
             String[] result = CalculatorInputSplitter.split(input);
             assertArrayEquals(new String[]{""}, result);
@@ -43,7 +43,7 @@ class CalculatorInputSplitterTest {
 
         @Test
         @DisplayName("세미콜론 커스텀 구분자로 정상 분리")
-        void split_커스텀_구분자() {
+        void 커스텀_구분자() {
             String input = "//;\\n1;2;3";
             String[] result = CalculatorInputSplitter.split(input);
             assertArrayEquals(new String[]{"1", "2", "3"}, result);
@@ -51,7 +51,7 @@ class CalculatorInputSplitterTest {
 
         @Test
         @DisplayName("숫자 하나만 있는 커스텀 구분자 입력")
-        void split_커스텀_숫자_하나만() {
+        void 커스텀_숫자_하나만() {
             String input = "//;\\n7";
             String[] result = CalculatorInputSplitter.split(input);
             assertArrayEquals(new String[]{"7"}, result);
@@ -59,7 +59,7 @@ class CalculatorInputSplitterTest {
 
         @Test
         @DisplayName("커스텀 구분자 선언만 있고 숫자 없음")
-        void split_커스텀_구분자_숫자없음() {
+        void 커스텀_구분자_숫자없음() {
             String input = "//;\\n";
             String[] result = CalculatorInputSplitter.split(input);
             assertArrayEquals(new String[]{""}, result);

@@ -49,6 +49,7 @@ public class CalculatorInputValidator {
 
     private static void validateNumbersPartNotEmpty(String input, int delimiterEndIndex) {
         String numbersPart = input.substring(delimiterEndIndex + Constants.CUSTOM_DELIMITER_PREFIX_LENGTH);
+
         if (numbersPart.isEmpty()) {
             throw new IllegalArgumentException(ErrorMessage.EMPTY_VALUE.getMessage());
         }

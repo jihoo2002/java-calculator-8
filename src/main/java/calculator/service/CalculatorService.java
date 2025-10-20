@@ -14,6 +14,7 @@ public class CalculatorService {
         String[] numbers = splitInput(input);
         validateNoNegative(numbers);
         List<Long> parsedNumbers = parseNumbers(numbers);
+
         return sumNumbers(parsedNumbers);
     }
 

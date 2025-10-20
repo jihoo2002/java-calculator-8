@@ -18,6 +18,7 @@ public class CalculatorInputSplitter {
         int delimiterEndIndex = input.indexOf(Constants.CUSTOM_DELIMITER_SEPARATOR);
         String delimiter = input.substring(Constants.CUSTOM_DELIMITER_PREFIX_LENGTH, delimiterEndIndex).trim();
         String numbersPart = input.substring(delimiterEndIndex + Constants.CUSTOM_DELIMITER_PREFIX_LENGTH);
+
         return numbersPart.split(Pattern.quote(delimiter));
     }
 }

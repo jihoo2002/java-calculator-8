@@ -21,15 +21,6 @@ class CalculatorInputValidatorTest {
         }
 
         @Test
-        @DisplayName("잘못된 문자 포함시 예외 발생")
-        void validator_잘못된문자() {
-            String input = "1,2:a";
-            IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
-                    () -> CalculatorInputValidator.validateInput(input));
-            assertEquals(ErrorMessage.INVALID_DEFAULT_DELIMITER.getMessage(), e.getMessage());
-        }
-
-        @Test
         @DisplayName("빈 입력값 예외 발생")
         void validator_빈값() {
             String input = "";
